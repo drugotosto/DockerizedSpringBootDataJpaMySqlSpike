@@ -1,6 +1,6 @@
 package com.springbootdev.examples.controller;
 
-import com.springbootdev.examples.entity.User;
+import com.springbootdev.examples.model.User;
 import com.springbootdev.examples.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-
     @PostMapping("/users")
     public User create(@RequestBody User user)
     {
@@ -25,7 +24,7 @@ public class UserController {
     @GetMapping("/users")
     public List<User> findAll()
     {
-        return userRepository.findAll();
+        return (List<User>) userRepository.findAll();
     }
 
 
@@ -38,16 +37,12 @@ public class UserController {
         return userRepository.save(user);
     }
 
-
-
     @DeleteMapping("/users/{user_id}")
     public List<User> delete(@PathVariable("user_id") Long userId)
     {
         userRepository.delete(userId);
-        return userRepository.findAll();
+        return (List<User>) userRepository.findAll();
     }
-
-
 
     @GetMapping("/users/{user_id}")
     @ResponseBody
